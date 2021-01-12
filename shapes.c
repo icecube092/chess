@@ -1,26 +1,26 @@
 
 struct shape{
     char color;  // B(66) or W(87)
-    unsigned char isalive;
-    char updown;
-    char leftright;
-    char diag;
     unsigned char shapetype;
     unsigned char number;
     char *view;
+    char updown;
+    char leftright;
+    char diag;
 };
 
-const char
-    PAWN = 80, // P
-    HORSE = 72, // H
-    ELEF = 69, // E
-    ROOK = 82, // R
-    QUEEN = 81, // Q
-    KING = 75, // K
 
-    WHITE = 87, // W
-    BLACK = 66 // B
-;
+#define PAWN 80 // P
+#define HORSE 72 // H
+#define ELEF 69 // E
+#define ROOK 82 // R
+#define QUEEN 81 // Q
+#define KING 75 // K
+
+#define WHITE 87 // W
+#define BLACK 66 // B
+#define EMPTY -1
+
 
 struct shape
     empty,
@@ -86,11 +86,9 @@ void make_horses(){
 
 void make_pawns(){
     bpawn_1.color = bpawn_2.color = bpawn_3.color = bpawn_4.color = bpawn_5.color = bpawn_6.color = bpawn_7.color = bpawn_8.color = BLACK;
-    bpawn_1.updown = bpawn_2.updown = bpawn_3.updown = bpawn_4.updown = bpawn_5.updown = bpawn_6.updown = bpawn_7.updown = bpawn_8.updown = 1;
     bpawn_1.view = bpawn_2.view = bpawn_3.view = bpawn_4.view = bpawn_5.view = bpawn_6.view = bpawn_7.view = bpawn_8.view = get_view(BLACK, PAWN);
 
     wpawn_1.color = wpawn_2.color = wpawn_3.color = wpawn_4.color = wpawn_5.color = wpawn_6.color = wpawn_7.color = wpawn_8.color = WHITE;
-    wpawn_1.updown = wpawn_2.updown = wpawn_3.updown = wpawn_4.updown = wpawn_5.updown = wpawn_6.updown = wpawn_7.updown = wpawn_8.updown = 1;
     wpawn_1.view = wpawn_2.view = wpawn_3.view = wpawn_4.view = wpawn_5.view = wpawn_6.view = wpawn_7.view = wpawn_8.view = get_view(WHITE, PAWN);
 
     bpawn_1.shapetype = bpawn_2.shapetype = bpawn_3.shapetype = bpawn_4.shapetype = bpawn_5.shapetype = bpawn_6.shapetype =
@@ -100,13 +98,9 @@ void make_pawns(){
 
 void make_elefs(){
     belef_1.color = belef_2.color = BLACK;
-    belef_1.updown = belef_2.updown = 8;
-    belef_1.leftright = belef_2.leftright = 8;
     belef_1.view = belef_2.view = get_view(BLACK, ELEF);
 
     welef_1.color = welef_2.color = WHITE;
-    welef_1.updown = welef_2.updown = 8;
-    welef_1.leftright = welef_2.leftright = 8;
     welef_1.view = welef_2.view = get_view(WHITE, ELEF);
 
     belef_1.number = welef_1.number = 0;
@@ -115,11 +109,9 @@ void make_elefs(){
 
 void make_rooks(){
     brook_1.color = brook_2.color = BLACK;
-    brook_1.diag = brook_2.diag = 8;
     brook_1.view = brook_2.view = get_view(BLACK, ROOK);
 
     wrook_1.color = wrook_2.color = WHITE;
-    wrook_1.diag = wrook_2.diag = 8;
     wrook_1.view = wrook_2.view = get_view(WHITE, ROOK);
 
     brook_1.number = wrook_1.number = 0;
@@ -168,8 +160,8 @@ void make_shapes(struct shape (*board)[8]){
     for (char row = 0; row < 8; row++){
         for (char col = 0; col < 8; col++){
             board[row][col] = b[row][col];
-            if (board[row][col].color){
-                board[row][col].isalive = 1;
+            if (!board[row][col].color){
+                board[row][col].shapetype = EMPTY;
             }
         }
     }
