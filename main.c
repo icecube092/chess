@@ -138,7 +138,7 @@ void show_board(){
     for (int r = 0; r < 8; r++){
         printf("%d | ", r);
         for (int n = 0; n < 8; n++){
-            printf("%s%s ", board[r][n].view);
+            printf("%s ", board[r][n].view);
         }
         printf("|\n");
     }
